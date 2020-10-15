@@ -1,6 +1,6 @@
 #!/bin/bash
 
-host="http://54.172.113.205:9090"
+host="http://54.175.0.211:9090"
 query_endpoint="/api/v1/query?query="
 
 

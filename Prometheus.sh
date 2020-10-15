@@ -4,7 +4,13 @@
 
 vim /etc/prometheus/prometheus.yml #config file
 
-sudo killall --HUP prometheus #reload prometheus with the config file
+sudo killall -HUP prometheus #reload prometheus with the config file
+
+sudo killall -HUP alertmanager #reload alertmanager with the config file
+
+echo "value 3.14" | curl --data-binary @- http://{prometheusserver}:9091/metrics/job/my_job #send to pushgateway
+
+sudo mkdir -p /etc/prometheus/rules #directory for recording rules files
 
 
 
@@ -62,3 +68,14 @@ sum(node_cpu_seconds_total{mode="system"})
 clamp_max(node_cpu_seconds_total, 1000) #max output value of 1000
 
 rate(node_cpu_seconds_total[1h]) #amount of cpu usage and idle ratios
+
+
+
+
+[Query Scrape Meta-Metrics]
+
+up{job="MyJob", instance="MyInstance"} #indicates whether or not the scrape was successful
+
+scrape_duration_seconds{job="MyJob", instance="MyInstance"} #the number of seconds the scrape took
+
+
