@@ -1,0 +1,9 @@
+groups:
+- name: node1rule
+  rules:
+  - alert: LinuxServerDown
+    expr: up{job="node1"} == 0
+    labels:
+      severity: critical #optional
+    annotations:
+      summary: Linux Server Down

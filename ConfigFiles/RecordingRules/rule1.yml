@@ -1,0 +1,16 @@
+groups:
+- name: node
+  interval: 15s
+  rules:
+  - record: node:cpu_usage
+    expr: sum(rate(node_cpu_seconds_total[5m])) * 100 / 2 host: myapp2.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: myservice2
+          servicePort: 443
+  - http: #requests to no hostnames defined
+      paths:
+      - backend:
+          serviceName: myservice3
+          servicePort: 44
